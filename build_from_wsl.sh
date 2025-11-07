@@ -118,6 +118,12 @@ echo -e "${BLUE}Step 6: Copying application files...${NC}"
 echo "→ Copying binaries..."
 cp -r VideoGenerator/bin/Release/net6.0-windows/* release/bin/
 
+# Rename executable to .exe for Windows compatibility
+if [ -f "release/bin/VideoGenerator" ]; then
+    mv release/bin/VideoGenerator release/bin/VideoGenerator.exe
+    echo "→ Renamed VideoGenerator to VideoGenerator.exe"
+fi
+
 # Copy backend files
 echo "→ Copying backend..."
 cp backend/generate.py release/backend/ 2>/dev/null || true
