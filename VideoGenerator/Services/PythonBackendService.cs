@@ -69,17 +69,12 @@ namespace VideoGenerator.Services
         }
 
         /// <summary>
-        /// Find Python executable (prefer venv, fallback to system)
+        /// Find Python executable (use WSL)
         /// </summary>
         private string FindPythonExecutable()
         {
-            // Try venv first
-            string venvPython = Path.Combine(_backendDir, "venv", "bin", "python");
-            if (File.Exists(venvPython))
-                return venvPython;
-
-            // Fallback to system python3
-            return "python3";
+            // Always use WSL since Python backend is in WSL environment
+            return "wsl.exe";
         }
 
         /// <summary>
@@ -247,15 +242,20 @@ namespace VideoGenerator.Services
             Action<string>? progressCallback = null,
             CancellationToken cancellationToken = default)
         {
+            // Convert Windows backend path to WSL path
+            string wslBackendPath = PathConverter.WindowsToWsl(_backendDir);
+
+            // Build WSL command to activate venv and run Python
+            string wslCommand = $"bash -c \"cd {wslBackendPath} && source venv/bin/activate && python {arguments}\"";
+
             var startInfo = new ProcessStartInfo
             {
-                FileName = _pythonExecutable,
-                Arguments = arguments,
+                FileName = _pythonExecutable, // wsl.exe
+                Arguments = wslCommand,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
-                CreateNoWindow = true,
-                WorkingDirectory = _backendDir
+                CreateNoWindow = true
             };
 
             using var process = new Process { StartInfo = startInfo };
