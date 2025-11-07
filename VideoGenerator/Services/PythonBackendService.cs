@@ -322,18 +322,32 @@ namespace VideoGenerator.Services
 
             if (process.ExitCode != 0)
             {
+                // Try to extract JSON error from output first
+                int jsonStart = output.IndexOf('{');
+                if (jsonStart >= 0)
+                {
+                    string jsonResponse = output.Substring(jsonStart).Trim();
+                    // Check if it's an error response
+                    if (jsonResponse.Contains("\"success\": false") || jsonResponse.Contains("\"error\""))
+                    {
+                        return jsonResponse; // Return error JSON for proper parsing
+                    }
+                }
+
+                // No JSON error, throw exception with stderr
                 throw new Exception(
                     $"Python process failed with exit code {process.ExitCode}\n" +
-                    $"Error: {error}"
+                    $"Stderr: {error}\n" +
+                    $"Stdout: {output}"
                 );
             }
 
             // Extract JSON response (everything from first '{' to end)
             // Python scripts may print progress messages before the JSON
-            int jsonStart = output.IndexOf('{');
-            if (jsonStart >= 0)
+            int jsonStart2 = output.IndexOf('{');
+            if (jsonStart2 >= 0)
             {
-                string jsonResponse = output.Substring(jsonStart).Trim();
+                string jsonResponse = output.Substring(jsonStart2).Trim();
                 return jsonResponse;
             }
 
