@@ -54,18 +54,35 @@ namespace VideoGenerator.Services
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
 
-            // Try deployed structure first: bin/../backend
+            // Try development structure first: bin/Debug/net6.0-windows/../../../../backend
+            string devPath = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "backend"));
+            if (Directory.Exists(devPath) && Directory.Exists(Path.Combine(devPath, "venv")))
+                return devPath;
+
+            // For deployed/portable: Use WSL backend directory where venv exists
+            // Check common WSL user paths
+            string wslUsername = Environment.UserName.ToLower();
+            string[] wslPaths = new[]
+            {
+                $@"\\wsl$\Ubuntu\home\{wslUsername}\personal-projects\image-video-3\backend",
+                $@"\\wsl$\Ubuntu-22.04\home\{wslUsername}\personal-projects\image-video-3\backend",
+                @"\\wsl$\Ubuntu\home\tawfiq\personal-projects\image-video-3\backend",
+                @"\\wsl$\Ubuntu-22.04\home\tawfiq\personal-projects\image-video-3\backend"
+            };
+
+            foreach (var wslPath in wslPaths)
+            {
+                if (Directory.Exists(wslPath) && Directory.Exists(Path.Combine(wslPath, "venv")))
+                    return wslPath;
+            }
+
+            // Fallback: try deployed structure (though it won't have venv)
             string deployedPath = Path.GetFullPath(Path.Combine(baseDir, "..", "backend"));
             if (Directory.Exists(deployedPath))
                 return deployedPath;
 
-            // Try development structure: bin/Debug/net6.0-windows/../../../../backend
-            string devPath = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "backend"));
-            if (Directory.Exists(devPath))
-                return devPath;
-
-            // Fallback: return deployed path even if it doesn't exist (will fail validation)
-            return deployedPath;
+            // Last resort: return first WSL path (will fail validation later)
+            return wslPaths[0];
         }
 
         /// <summary>
