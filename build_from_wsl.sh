@@ -76,19 +76,20 @@ echo -e "${GREEN}✓ Packages restored${NC}"
 echo ""
 
 ##############################################################################
-# Step 4: Build Release Configuration
+# Step 4: Build Release Configuration for Windows
 ##############################################################################
 
-echo -e "${BLUE}Step 4: Building Release configuration...${NC}"
+echo -e "${BLUE}Step 4: Building Release configuration for Windows (win-x64)...${NC}"
 
-dotnet build --configuration Release --no-restore
+# Use publish with runtime identifier to create Windows executable
+dotnet publish --configuration Release --runtime win-x64 --no-restore --self-contained false
 
 if [ $? -ne 0 ]; then
     echo -e "${RED}✗ Build failed${NC}"
     exit 1
 fi
 
-echo -e "${GREEN}✓ Build successful${NC}"
+echo -e "${GREEN}✓ Build successful (Windows x64 executable)${NC}"
 echo ""
 
 cd ..
@@ -114,12 +115,14 @@ echo ""
 
 echo -e "${BLUE}Step 6: Copying application files...${NC}"
 
-# Copy executable and dependencies
-echo "→ Copying binaries..."
-cp -r VideoGenerator/bin/Release/net6.0-windows/* release/bin/
+# Copy executable and dependencies from publish directory
+echo "→ Copying binaries from publish output..."
+cp -r VideoGenerator/bin/Release/net6.0-windows/win-x64/publish/* release/bin/
 
-# Rename executable to .exe for Windows compatibility
-if [ -f "release/bin/VideoGenerator" ]; then
+# Windows executable should already have .exe extension from cross-compilation
+if [ -f "release/bin/VideoGenerator.exe" ]; then
+    echo "→ Windows executable ready: VideoGenerator.exe"
+elif [ -f "release/bin/VideoGenerator" ]; then
     mv release/bin/VideoGenerator release/bin/VideoGenerator.exe
     echo "→ Renamed VideoGenerator to VideoGenerator.exe"
 fi
