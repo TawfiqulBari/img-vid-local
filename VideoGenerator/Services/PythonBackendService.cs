@@ -126,8 +126,11 @@ namespace VideoGenerator.Services
                 WriteIndented = false
             });
 
+            // Escape single quotes in JSON for bash (replace ' with '\''  )
+            string escapedJsonParams = jsonParams.Replace("'", "'\\''");
+
             // Build command - use relative path since we cd into backend directory
-            string arguments = $"generate.py '{jsonParams}'";
+            string arguments = $"generate.py '{escapedJsonParams}'";
 
             progressCallback?.Invoke("Starting Python backend...");
 
