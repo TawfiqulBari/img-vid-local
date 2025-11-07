@@ -328,11 +328,17 @@ namespace VideoGenerator.Services
                 );
             }
 
-            // Return the last line (JSON response)
-            var lines = output.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            string jsonResponse = lines.LastOrDefault() ?? "{}";
+            // Extract JSON response (everything from first '{' to end)
+            // Python scripts may print progress messages before the JSON
+            int jsonStart = output.IndexOf('{');
+            if (jsonStart >= 0)
+            {
+                string jsonResponse = output.Substring(jsonStart).Trim();
+                return jsonResponse;
+            }
 
-            return jsonResponse;
+            // Fallback: return empty JSON
+            return "{}";
         }
 
         /// <summary>
