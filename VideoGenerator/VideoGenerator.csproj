@@ -6,12 +6,11 @@
     <UseWPF>true</UseWPF>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
     <AssemblyName>VideoGenerator</AssemblyName>
     <RootNamespace>VideoGenerator</RootNamespace>
     <Version>1.0.0</Version>
-    <Authors>Your Name</Authors>
-    <Company>Your Company</Company>
+    <Authors>Tawfiqul Bari</Authors>
+    <Company>TawfiqulBari</Company>
     <Product>Image-to-Video Generator</Product>
     <Description>AI-powered image-to-video generator with SVD and AnimateDiff</Description>
     <Copyright>Copyright © 2025</Copyright>
@@ -27,12 +26,6 @@
 
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="8.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="icon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
