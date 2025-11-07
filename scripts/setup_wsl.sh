@@ -14,10 +14,11 @@
 #   1. Checks system requirements (Python 3.10/3.11/3.12, nvidia-smi)
 #   2. Creates Python virtual environment
 #   3. Installs PyTorch with CUDA 11.8
-#   4. Installs all dependencies
-#   5. Verifies GPU access
-#   6. Creates necessary directories on D:\ drive
-#   7. Provides next steps
+#   4. Installs xformers (memory optimization)
+#   5. Installs all other dependencies
+#   6. Verifies GPU access and package imports
+#   7. Creates necessary directories on D:\ drive
+#   8. Provides next steps
 #
 ##############################################################################
 
@@ -192,10 +193,28 @@ print_info "Verifying PyTorch CUDA support..."
 python -c "import torch; print(f'PyTorch Version: {torch.__version__}'); print(f'CUDA Available: {torch.cuda.is_available()}'); print(f'CUDA Version: {torch.version.cuda}' if torch.cuda.is_available() else 'CUDA Not Available')"
 
 ##############################################################################
-# Step 4: Install All Dependencies
+# Step 4: Install xformers (Memory Optimization - CRITICAL)
 ##############################################################################
 
-print_header "Step 4: Installing All Dependencies"
+print_header "Step 4: Installing xformers (Memory Optimization)"
+
+print_info "Installing xformers (requires PyTorch to be installed first)..."
+print_info "This may take 5-10 minutes..."
+
+# Try to install xformers - it's critical for 12GB VRAM but can fail on some systems
+if pip install xformers --no-cache-dir; then
+    print_success "xformers installed successfully"
+else
+    print_warning "xformers installation failed"
+    print_info "The application will work but may use more VRAM"
+    print_info "You can try installing manually later with: pip install xformers"
+fi
+
+##############################################################################
+# Step 5: Install All Dependencies
+##############################################################################
+
+print_header "Step 5: Installing All Dependencies"
 
 print_info "This may take 10-15 minutes..."
 print_info "Installing from: $PROJECT_ROOT/backend/requirements.txt"
@@ -206,10 +225,10 @@ pip install --no-cache-dir -r "$PROJECT_ROOT/backend/requirements.txt"
 print_success "All dependencies installed"
 
 ##############################################################################
-# Step 5: Verify Installation
+# Step 6: Verify Installation
 ##############################################################################
 
-print_header "Step 5: Verifying Installation"
+print_header "Step 6: Verifying Installation"
 
 # Check key packages
 print_info "Checking installed packages..."
@@ -232,10 +251,10 @@ else
 fi
 
 ##############################################################################
-# Step 6: Create Necessary Directories
+# Step 7: Create Necessary Directories
 ##############################################################################
 
-print_header "Step 6: Creating Directory Structure"
+print_header "Step 7: Creating Directory Structure"
 
 # Create directories on D:\ drive (Windows)
 D_DRIVE="/mnt/d"
@@ -270,7 +289,7 @@ touch "$PROJECT_ROOT/backend/utils/__init__.py"
 print_success "Python packages initialized"
 
 ##############################################################################
-# Step 7: Summary and Next Steps
+# Step 8: Summary and Next Steps
 ##############################################################################
 
 print_header "Setup Complete!"
