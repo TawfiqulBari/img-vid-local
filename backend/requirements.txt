@@ -7,9 +7,9 @@
 # Install these first with special index URL:
 # pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
-torch==2.1.0
-torchvision==0.16.0
-torchaudio==2.1.0
+torch==2.3.1
+torchvision==0.18.1
+torchaudio==2.3.1
 
 # ============================================================================
 # Diffusers and Transformers (Core AI Models)
@@ -22,7 +22,7 @@ safetensors==0.4.1          # Safe model format
 # ============================================================================
 # Memory Optimization
 # ============================================================================
-xformers==0.0.23            # Memory-efficient attention (CRITICAL for 12GB VRAM)
+xformers==0.0.26.post1      # Memory-efficient attention (CRITICAL for 12GB VRAM, compatible with PyTorch 2.3.x)
 
 # ============================================================================
 # Image and Video Processing
@@ -60,7 +60,7 @@ flake8==6.1.0               # Linting
 # IMPORTANT: Install PyTorch with CUDA support FIRST:
 #
 # Step 1: Install PyTorch with CUDA 11.8
-# pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu118
+# pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu118
 #
 # Step 2: Install all other dependencies
 # pip install -r requirements.txt
@@ -72,20 +72,21 @@ flake8==6.1.0               # Linting
 # Version Notes
 # ============================================================================
 #
-# PyTorch 2.1.0:
+# PyTorch 2.3.1:
 #   - CUDA 11.8 support
 #   - Stable for production
-#   - Compatible with xformers 0.0.23
+#   - Compatible with xformers 0.0.26.post1
+#   - Improved performance over 2.1.x
 #
 # Diffusers 0.24.0:
 #   - SVD-XT support
 #   - AnimateDiff support
 #   - Stable API
 #
-# Xformers 0.0.23:
+# Xformers 0.0.26.post1:
 #   - CRITICAL for 12GB VRAM
 #   - Reduces memory usage by 30-40%
-#   - May need specific CUDA version
+#   - Compatible with PyTorch 2.3.x
 #
 # Python Version:
 #   - Python 3.10, 3.11, or 3.12 supported

@@ -182,7 +182,7 @@ print_header "Step 3: Installing PyTorch with CUDA 11.8"
 
 print_info "This may take 5-10 minutes depending on your internet speed..."
 
-pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 \
+pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 \
     --index-url https://download.pytorch.org/whl/cu118
 
 print_success "PyTorch installed"
