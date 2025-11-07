@@ -11,7 +11,7 @@
 #   # Or make executable: chmod +x scripts/setup_wsl.sh && ./scripts/setup_wsl.sh
 #
 # What this script does:
-#   1. Checks system requirements (Python 3.10, nvidia-smi)
+#   1. Checks system requirements (Python 3.10/3.11/3.12, nvidia-smi)
 #   2. Creates Python virtual environment
 #   3. Installs PyTorch with CUDA 11.8
 #   4. Installs all dependencies
@@ -81,23 +81,41 @@ else
     fi
 fi
 
-# Check Python 3.10
-if command -v python3.10 &> /dev/null; then
-    PYTHON_CMD="python3.10"
-    print_success "Python 3.10 found: $(python3.10 --version)"
-elif command -v python3 &> /dev/null; then
-    PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -d'.' -f1,2)
-    if [ "$PYTHON_VERSION" == "3.10" ]; then
-        PYTHON_CMD="python3"
-        print_success "Python 3.10 found: $(python3 --version)"
-    else
-        print_error "Python 3.10 not found (found Python $PYTHON_VERSION)"
-        print_info "Install with: sudo apt update && sudo apt install python3.10 python3.10-venv python3.10-dev"
-        exit 1
+# Check Python 3.10, 3.11, or 3.12
+PYTHON_CMD=""
+PYTHON_VERSION=""
+
+# Try specific versions first
+for VERSION in "3.10" "3.11" "3.12"; do
+    if command -v "python$VERSION" &> /dev/null; then
+        PYTHON_CMD="python$VERSION"
+        PYTHON_VERSION=$(python$VERSION --version | cut -d' ' -f2)
+        print_success "Python $VERSION found: $PYTHON_VERSION"
+        break
     fi
-else
+done
+
+# If no specific version found, check python3
+if [ -z "$PYTHON_CMD" ] && command -v python3 &> /dev/null; then
+    PYTHON_VERSION=$(python3 --version | cut -d' ' -f2 | cut -d'.' -f1,2)
+    case "$PYTHON_VERSION" in
+        3.10|3.11|3.12)
+            PYTHON_CMD="python3"
+            print_success "Python $PYTHON_VERSION found: $(python3 --version)"
+            ;;
+        *)
+            print_error "Python 3.10+ not found (found Python $PYTHON_VERSION)"
+            print_info "This project requires Python 3.10, 3.11, or 3.12"
+            print_info "Install with: sudo apt update && sudo apt install python3.12 python3.12-venv python3.12-dev"
+            exit 1
+            ;;
+    esac
+fi
+
+# If still no Python found
+if [ -z "$PYTHON_CMD" ]; then
     print_error "Python not found"
-    print_info "Install with: sudo apt update && sudo apt install python3.10 python3.10-venv python3.10-dev"
+    print_info "Install with: sudo apt update && sudo apt install python3.12 python3.12-venv python3.12-dev"
     exit 1
 fi
 

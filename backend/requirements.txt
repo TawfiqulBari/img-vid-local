@@ -1,5 +1,5 @@
 # Image-to-Video Generator - Python Dependencies
-# Python 3.10 required
+# Python 3.10, 3.11, or 3.12 supported (3.10 or 3.11 recommended for best compatibility)
 
 # ============================================================================
 # PyTorch with CUDA 11.8 Support
@@ -87,9 +87,10 @@ flake8==6.1.0               # Linting
 #   - Reduces memory usage by 30-40%
 #   - May need specific CUDA version
 #
-# Python 3.10:
-#   - Required for xformers compatibility
-#   - Stable with all dependencies
+# Python Version:
+#   - Python 3.10, 3.11, or 3.12 supported
+#   - Python 3.10 or 3.11 recommended for best xformers compatibility
+#   - Python 3.12 may require newer package versions
 #
 # ============================================================================
 # Troubleshooting
