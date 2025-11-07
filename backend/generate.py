@@ -90,6 +90,11 @@ Examples:
         help='Enable verbose output'
     )
 
+    parser.add_argument(
+        '--base64',
+        help='Base64-encoded JSON parameters (avoids shell escaping issues)'
+    )
+
     return parser.parse_args()
 
 
@@ -265,19 +270,33 @@ def main() -> int:
             return 0
 
         # Parse generation parameters
-        if not args.params:
+        if args.base64:
+            # Decode base64-encoded JSON parameters
+            try:
+                import base64
+                json_bytes = base64.b64decode(args.base64)
+                json_str = json_bytes.decode('utf-8')
+                params = json.loads(json_str)
+            except Exception as e:
+                print(json.dumps({
+                    'success': False,
+                    'error': f'Failed to decode base64 parameters: {str(e)}'
+                }))
+                return 1
+        elif args.params:
+            # Parse regular JSON parameters
+            try:
+                params = json.loads(args.params)
+            except json.JSONDecodeError as e:
+                print(json.dumps({
+                    'success': False,
+                    'error': f'Invalid JSON parameters: {str(e)}'
+                }))
+                return 1
+        else:
             print(json.dumps({
                 'success': False,
-                'error': 'No parameters provided. Use --help for usage information.'
-            }))
-            return 1
-
-        try:
-            params = json.loads(args.params)
-        except json.JSONDecodeError as e:
-            print(json.dumps({
-                'success': False,
-                'error': f'Invalid JSON parameters: {str(e)}'
+                'error': 'No parameters provided. Use --help or --base64 for usage information.'
             }))
             return 1
 

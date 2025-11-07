@@ -126,11 +126,12 @@ namespace VideoGenerator.Services
                 WriteIndented = false
             });
 
-            // Escape single quotes in JSON for bash (replace ' with '\''  )
-            string escapedJsonParams = jsonParams.Replace("'", "'\\''");
+            // Convert JSON to Base64 to avoid shell escaping issues
+            byte[] jsonBytes = System.Text.Encoding.UTF8.GetBytes(jsonParams);
+            string base64Params = Convert.ToBase64String(jsonBytes);
 
-            // Build command - use relative path since we cd into backend directory
-            string arguments = $"generate.py '{escapedJsonParams}'";
+            // Build command with base64 parameter - no escaping needed
+            string arguments = $"generate.py --base64 {base64Params}";
 
             progressCallback?.Invoke("Starting Python backend...");
 
