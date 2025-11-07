@@ -239,7 +239,8 @@ if __name__ == "__main__":
     original = "D:\\VideoGenerator\\models\\svd-xt"
     wsl = windows_to_wsl_path(original)
     back = wsl_to_windows_path(wsl)
+    normalized_original = original.replace('\\\\', '\\')
     print(f"  Original: {original}")
     print(f"  → WSL:    {wsl}")
     print(f"  → Back:   {back}")
-    print(f"  Match: {original.replace('\\\\', '\\') == back}")
+    print(f"  Match: {normalized_original == back}")
