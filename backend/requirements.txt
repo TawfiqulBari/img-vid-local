@@ -14,10 +14,10 @@ torchaudio==2.3.1
 # ============================================================================
 # Diffusers and Transformers (Core AI Models)
 # ============================================================================
-diffusers==0.24.0          # SVD and AnimateDiff pipelines
-transformers==4.36.0        # CLIP, text encoders
-accelerate==0.25.0          # Memory optimization
-safetensors==0.4.1          # Safe model format
+diffusers>=0.24.0          # SVD and AnimateDiff pipelines
+transformers>=4.36.0        # CLIP, text encoders
+accelerate>=0.25.0          # Memory optimization
+safetensors>=0.4.1          # Safe model format
 
 # ============================================================================
 # Memory Optimization
@@ -44,9 +44,9 @@ tqdm==4.66.1                # Progress bars for downloads
 # ============================================================================
 # Utilities
 # ============================================================================
-numpy==1.24.3               # Numerical operations (compatible with torch)
-scipy==1.11.4               # Scientific computing
-omegaconf==2.3.0            # Configuration management
+numpy>=1.26.0               # Numerical operations (Python 3.12 compatible)
+scipy>=1.11.4               # Scientific computing
+omegaconf>=2.3.0            # Configuration management
 
 # ============================================================================
 # Optional: Development and Testing
