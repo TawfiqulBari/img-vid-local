@@ -109,8 +109,8 @@ namespace VideoGenerator.Services
                 WriteIndented = false
             });
 
-            // Build command
-            string arguments = $"\"{_generateScriptPath}\" '{jsonParams}'";
+            // Build command - use relative path since we cd into backend directory
+            string arguments = $"generate.py '{jsonParams}'";
 
             progressCallback?.Invoke("Starting Python backend...");
 
@@ -163,7 +163,8 @@ namespace VideoGenerator.Services
         {
             try
             {
-                string arguments = $"\"{_generateScriptPath}\" --list-models";
+                // Use relative path since we cd into backend directory
+                string arguments = "generate.py --list-models";
                 string result = await RunPythonProcessAsync(arguments);
 
                 var response = JsonSerializer.Deserialize<ListModelsResponse>(result);
@@ -186,7 +187,8 @@ namespace VideoGenerator.Services
         {
             try
             {
-                string arguments = $"\"{_generateScriptPath}\" --vram-stats";
+                // Use relative path since we cd into backend directory
+                string arguments = "generate.py --vram-stats";
                 string result = await RunPythonProcessAsync(arguments);
 
                 var response = JsonSerializer.Deserialize<VramStatsResponse>(result);
