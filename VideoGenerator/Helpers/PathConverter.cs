@@ -13,6 +13,7 @@ namespace VideoGenerator.Helpers
         /// <summary>
         /// Convert Windows path to WSL path
         /// Example: D:\VideoGenerator\models -> /mnt/d/VideoGenerator/models
+        /// Example: \\wsl$\Ubuntu\home\user\path -> /home/user/path
         /// </summary>
         /// <param name="windowsPath">Windows-style path</param>
         /// <returns>WSL-style path</returns>
@@ -26,6 +27,26 @@ namespace VideoGenerator.Helpers
 
             // Remove trailing slashes
             path = path.TrimEnd('/');
+
+            // Check if it's a WSL UNC path (e.g., //wsl$/Ubuntu/home/user/path or //wsl.localhost/Ubuntu/home/user/path)
+            if (path.StartsWith("//wsl$") || path.StartsWith("//wsl.localhost"))
+            {
+                // Split: //wsl$/Ubuntu/home/user/path -> ['', '', 'wsl$', 'Ubuntu', 'home', 'user', 'path']
+                string[] parts = path.Split('/');
+
+                // Find where the actual Linux path starts (after distribution name)
+                // //wsl$/Ubuntu/home/user -> we want /home/user
+                // //wsl$/Ubuntu-22.04/home/user -> we want /home/user
+                if (parts.Length >= 5)
+                {
+                    // Skip: ['', '', 'wsl$', 'Ubuntu'] and keep ['home', 'user', 'path']
+                    string[] linuxParts = parts.Skip(4).ToArray();
+                    return "/" + string.Join("/", linuxParts);
+                }
+
+                // Fallback: just remove //wsl$/distro prefix
+                return path;
+            }
 
             // Check if it's a drive letter path (e.g., D:/ or D:\)
             if (path.Length >= 2 && path[1] == ':')
