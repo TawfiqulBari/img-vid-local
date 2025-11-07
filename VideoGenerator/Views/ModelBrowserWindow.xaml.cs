@@ -29,13 +29,31 @@ namespace VideoGenerator.Views
         {
             InitializeComponent();
 
-            // Path to catalog
-            _catalogPath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "..", "..", "..", "..", "backend", "models_catalog.json"
-            );
+            // Path to catalog (works in both dev and deployed environments)
+            _catalogPath = FindCatalogPath();
 
             Loaded += ModelBrowserWindow_Loaded;
+        }
+
+        /// <summary>
+        /// Find models catalog path (works in both development and deployed environments)
+        /// </summary>
+        private string FindCatalogPath()
+        {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Try deployed structure first: bin/../backend/models_catalog.json
+            string deployedPath = Path.GetFullPath(Path.Combine(baseDir, "..", "backend", "models_catalog.json"));
+            if (File.Exists(deployedPath))
+                return deployedPath;
+
+            // Try development structure: bin/Debug/net6.0-windows/../../../../backend/models_catalog.json
+            string devPath = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "backend", "models_catalog.json"));
+            if (File.Exists(devPath))
+                return devPath;
+
+            // Fallback: return deployed path (will show error if not found)
+            return deployedPath;
         }
 
         private async void ModelBrowserWindow_Loaded(object sender, RoutedEventArgs e)

@@ -31,14 +31,8 @@ namespace VideoGenerator.Services
             string? pythonExecutable = null,
             string? backendDir = null)
         {
-            // Default to WSL python in virtual environment
-            _pythonExecutable = pythonExecutable ?? FindPythonExecutable();
-
-            // Default to backend directory in project
-            _backendDir = backendDir ?? Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "..", "..", "..", "..", "backend"
-            );
+            // Find backend directory (works in both dev and deployed environments)
+            _backendDir = backendDir ?? FindBackendDirectory();
 
             _generateScriptPath = Path.Combine(_backendDir, "generate.py");
 
@@ -48,6 +42,30 @@ namespace VideoGenerator.Services
                 throw new FileNotFoundException(
                     $"Python backend script not found: {_generateScriptPath}");
             }
+
+            // Default to WSL python in virtual environment
+            _pythonExecutable = pythonExecutable ?? FindPythonExecutable();
+        }
+
+        /// <summary>
+        /// Find backend directory (works in both development and deployed environments)
+        /// </summary>
+        private string FindBackendDirectory()
+        {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Try deployed structure first: bin/../backend
+            string deployedPath = Path.GetFullPath(Path.Combine(baseDir, "..", "backend"));
+            if (Directory.Exists(deployedPath))
+                return deployedPath;
+
+            // Try development structure: bin/Debug/net6.0-windows/../../../../backend
+            string devPath = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "backend"));
+            if (Directory.Exists(devPath))
+                return devPath;
+
+            // Fallback: return deployed path even if it doesn't exist (will fail validation)
+            return deployedPath;
         }
 
         /// <summary>
