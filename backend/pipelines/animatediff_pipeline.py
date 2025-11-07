@@ -134,13 +134,32 @@ class AnimateDiffPipeline(BasePipeline):
                 # Load from single file (CivitAI models)
                 print(f"  Loading custom model from .safetensors file")
 
-                self.pipe = AnimateDiffPipeline.from_single_file(
-                    str(self.model_path),
+                # Load AnimateDiffPipeline from base SD 1.5, then inject custom weights
+                import warnings
+                from safetensors.torch import load_file
+
+                # Suppress deprecation warnings
+                warnings.filterwarnings('ignore', category=FutureWarning)
+                warnings.filterwarnings('ignore', category=UserWarning)
+
+                # Load AnimateDiff pipeline with base SD 1.5 model
+                print("  Loading base AnimateDiff pipeline with SD 1.5...")
+                self.pipe = AnimateDiffPipeline.from_pretrained(
+                    "runwayml/stable-diffusion-v1-5",
                     motion_adapter=self.motion_adapter,
-                    torch_dtype=self.torch_dtype,
-                    # CRITICAL: Disable safety checker for NSFW support
-                    load_safety_checker=False
+                    torch_dtype=self.torch_dtype
                 )
+
+                # Load custom model weights from .safetensors file
+                print(f"  Loading custom weights from {self.model_path.name}...")
+                state_dict = load_file(str(self.model_path))
+
+                # Inject custom weights into UNet
+                self.pipe.unet.load_state_dict(state_dict, strict=False)
+                print("  ✅ Custom model weights loaded")
+
+                # Disable safety checker for NSFW
+                self.pipe.safety_checker = None
                 print("  🔓 Safety checker disabled (NSFW-capable)")
 
             else:
