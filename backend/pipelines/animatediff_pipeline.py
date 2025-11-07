@@ -25,7 +25,7 @@ import numpy as np
 
 try:
     from diffusers import (
-        AnimateDiffPipeline,
+        AnimateDiffPipeline as DiffusersAnimateDiffPipeline,
         MotionAdapter,
         DDIMScheduler,
         DPMSolverMultistepScheduler,
@@ -144,7 +144,7 @@ class AnimateDiffPipeline(BasePipeline):
 
                 # Load AnimateDiff pipeline with base SD 1.5 model
                 print("  Loading base AnimateDiff pipeline with SD 1.5...")
-                self.pipe = AnimateDiffPipeline.from_pretrained(
+                self.pipe = DiffusersAnimateDiffPipeline.from_pretrained(
                     "runwayml/stable-diffusion-v1-5",
                     motion_adapter=self.motion_adapter,
                     torch_dtype=self.torch_dtype
@@ -164,7 +164,7 @@ class AnimateDiffPipeline(BasePipeline):
 
             else:
                 # Load from pretrained directory
-                self.pipe = AnimateDiffPipeline.from_pretrained(
+                self.pipe = DiffusersAnimateDiffPipeline.from_pretrained(
                     str(self.model_path),
                     motion_adapter=self.motion_adapter,
                     torch_dtype=self.torch_dtype,
