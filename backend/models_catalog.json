@@ -1,0 +1,220 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-01-07",
+  "description": "Curated catalog of NSFW-capable SD 1.5 models for AnimateDiff",
+  "models": [
+    {
+      "id": 4201,
+      "name": "Realistic Vision",
+      "version": "v5.1 Hyper (VAE)",
+      "version_id": 130072,
+      "type": "realistic",
+      "style": "photorealistic",
+      "description": "Extremely popular realistic model with excellent skin/hair textures and wide range of face types. Best overall realistic model.",
+      "nsfw_level": 15,
+      "base_model": "SD 1.5",
+      "file_size_mb": 2000,
+      "download_url": "https://civitai.com/api/download/models/130072",
+      "tags": ["realistic", "photorealistic", "versatile", "skin-texture", "popular"],
+      "recommended_settings": {
+        "sampler": "DPM++ 2M Karras",
+        "steps": 25,
+        "cfg_scale": 7.0,
+        "clip_skip": 1
+      },
+      "pros": [
+        "Versatile with many face types",
+        "Excellent skin and hair texture",
+        "Most popular realistic model",
+        "Good balance of quality and prompt adherence"
+      ],
+      "cons": [
+        "May require VAE for best colors",
+        "Some versions have artifacts"
+      ]
+    },
+    {
+      "id": 2661,
+      "name": "URPM (Uber Realistic Porn Merge)",
+      "version": "v2.3 Final",
+      "version_id": 915814,
+      "type": "realistic",
+      "style": "photorealistic-nsfw",
+      "description": "Specifically designed for NSFW content with excellent anatomy. High-quality realistic NSFW generation.",
+      "nsfw_level": 60,
+      "base_model": "SD 1.5",
+      "file_size_mb": 1990,
+      "download_url": "https://civitai.com/api/download/models/915814",
+      "tags": ["realistic", "nsfw-focused", "anatomy", "photorealistic", "explicit"],
+      "recommended_settings": {
+        "sampler": "DPM++ SDE Karras",
+        "steps": 30,
+        "cfg_scale": 7.5,
+        "clip_skip": 1
+      },
+      "pros": [
+        "Specifically designed for NSFW",
+        "Excellent anatomy rendering",
+        "Very realistic output",
+        "Strong adult content capability"
+      ],
+      "cons": [
+        "May be too explicit for some uses",
+        "Limited non-NSFW capability"
+      ]
+    },
+    {
+      "id": 6424,
+      "name": "ChilloutMix",
+      "version": "Chilloutmix-Ni-pruned-fp32-fix",
+      "version_id": 11745,
+      "type": "realistic",
+      "style": "photorealistic-asian",
+      "description": "Most popular model for realistic Asian faces. Photorealistic with strong NSFW capability. Can be too explicit by default.",
+      "nsfw_level": 60,
+      "base_model": "SD 1.5",
+      "file_size_mb": 2130,
+      "download_url": "https://civitai.com/api/download/models/11745",
+      "tags": ["realistic", "asian-faces", "photorealistic", "nsfw", "popular"],
+      "recommended_settings": {
+        "sampler": "Euler a",
+        "steps": 25,
+        "cfg_scale": 7.0,
+        "clip_skip": 2,
+        "embeddings": ["ulzzang-6500"]
+      },
+      "pros": [
+        "Best for Asian facial features",
+        "Highly photorealistic",
+        "Strong NSFW capability",
+        "Very popular and well-tested"
+      ],
+      "cons": [
+        "May be too NSFW by default (add 'nude' to negative)",
+        "Non-commercial license restriction",
+        "Less versatile with non-Asian faces"
+      ]
+    },
+    {
+      "id": 25694,
+      "name": "epiCRealism",
+      "version": "Natural Sin RC1 VAE",
+      "version_id": 143906,
+      "type": "realistic",
+      "style": "photorealistic-natural",
+      "description": "Amazing skin/hair textures with cinematic lighting. Photographic look with natural appearance. NSFW-capable.",
+      "nsfw_level": 31,
+      "base_model": "SD 1.5",
+      "file_size_mb": 1990,
+      "download_url": "https://civitai.com/api/download/models/143906",
+      "tags": ["realistic", "photorealistic", "cinematic", "natural", "texture"],
+      "recommended_settings": {
+        "sampler": "DPM++ 2M Karras",
+        "steps": 25,
+        "cfg_scale": 5.0,
+        "clip_skip": 1
+      },
+      "pros": [
+        "Exceptional skin and hair texture",
+        "Cinematic lighting capabilities",
+        "Natural photographic look",
+        "Simple prompts work well"
+      ],
+      "cons": [
+        "Can be NSFW-heavy",
+        "Loose prompt guidance (less controllable)",
+        "Quality keywords don't help much"
+      ]
+    },
+    {
+      "id": 43331,
+      "name": "majicMIX realistic",
+      "version": "v7",
+      "version_id": 176425,
+      "type": "realistic",
+      "style": "photorealistic-portrait",
+      "description": "Excellent for detailed portraiture with Asian features. Great dark scene handling and facial aesthetics.",
+      "nsfw_level": 31,
+      "base_model": "SD 1.5",
+      "file_size_mb": 1990,
+      "download_url": "https://civitai.com/api/download/models/176425",
+      "tags": ["realistic", "portrait", "asian", "dark-scenes", "detailed"],
+      "recommended_settings": {
+        "sampler": "Euler a",
+        "steps": 25,
+        "cfg_scale": 7.0,
+        "clip_skip": 2
+      },
+      "pros": [
+        "Excellent portraiture",
+        "Great for Asian features",
+        "Handles dark scenes well",
+        "Detailed facial aesthetics"
+      ],
+      "cons": [
+        "Optimized for specific use case (portraits)",
+        "May not be as versatile as others"
+      ]
+    },
+    {
+      "id": 7240,
+      "name": "MeinaMix",
+      "version": "v12 - Final",
+      "version_id": 948574,
+      "type": "anime",
+      "style": "anime-semi-realistic",
+      "description": "Best anime/semi-realistic model with NSFW support. Excellent art with minimal prompting. Final SD 1.5 version.",
+      "nsfw_level": 45,
+      "base_model": "SD 1.5",
+      "file_size_mb": 1990,
+      "download_url": "https://civitai.com/api/download/models/948574",
+      "tags": ["anime", "illustration", "2d", "semi-realistic", "creative"],
+      "recommended_settings": {
+        "sampler": "DPM++ SDE Karras",
+        "steps": 25,
+        "cfg_scale": 7.0,
+        "clip_skip": 2
+      },
+      "pros": [
+        "Great anime/illustration output",
+        "Minimal prompting needed",
+        "More stable negative prompts",
+        "Creative and versatile",
+        "Animation-friendly"
+      ],
+      "cons": [
+        "Final SD 1.5 version (no more updates)",
+        "Not purely realistic",
+        "Better for 2D/illustration than photorealism"
+      ]
+    }
+  ],
+  "categories": {
+    "realistic": {
+      "name": "Photorealistic",
+      "description": "Photorealistic human generation with NSFW capability",
+      "models": [4201, 2661, 6424, 25694, 43331]
+    },
+    "anime": {
+      "name": "Anime/Illustration",
+      "description": "Anime and semi-realistic illustration styles",
+      "models": [7240]
+    }
+  },
+  "recommendations": {
+    "best_overall": 4201,
+    "best_nsfw_realistic": 2661,
+    "best_asian_faces": 6424,
+    "best_texture": 25694,
+    "best_anime": 7240,
+    "most_popular": 4201
+  },
+  "notes": [
+    "All models are SD 1.5 and compatible with AnimateDiff motion adapter",
+    "NSFW level: Higher number = more explicit content capability (0-100 scale)",
+    "Models with level 60+ may generate NSFW content by default",
+    "For private use only - respect model licenses and usage terms",
+    "Always use negative prompts to control output appropriately",
+    "Some models have non-commercial license restrictions (ChilloutMix)"
+  ]
+}

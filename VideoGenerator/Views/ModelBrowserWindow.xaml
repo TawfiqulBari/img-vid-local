@@ -1,0 +1,201 @@
+<Window x:Class="VideoGenerator.Views.ModelBrowserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="CivitAI Model Browser - NSFW Models" Height="700" Width="1000"
+        MinHeight="600" MinWidth="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#E91E63" Padding="15">
+            <StackPanel>
+                <TextBlock Text="CivitAI Model Browser" FontSize="24" FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="Curated NSFW-capable Stable Diffusion 1.5 models for AnimateDiff"
+                           FontSize="12" Foreground="#FCE4EC" Margin="0,5,0,0"/>
+                <TextBlock Text="⚠️ 18+ Content - For Private Use Only"
+                           FontSize="11" FontWeight="SemiBold" Foreground="#FFEB3B" Margin="0,3,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: Filter & Categories -->
+            <Border Grid.Column="0" BorderBrush="#CCCCCC" BorderThickness="0,0,1,0" Padding="10,0">
+                <StackPanel>
+                    <Label Content="Filter by Category:" FontWeight="Bold" Margin="0,5"/>
+
+                    <RadioButton Name="AllModelsRadio" Content="All Models (6)" IsChecked="True"
+                                 Margin="5" Checked="FilterRadio_Checked"/>
+                    <RadioButton Name="RealisticRadio" Content="Photorealistic (5)"
+                                 Margin="5" Checked="FilterRadio_Checked"/>
+                    <RadioButton Name="AnimeRadio" Content="Anime/Illustration (1)"
+                                 Margin="5" Checked="FilterRadio_Checked"/>
+
+                    <Separator Margin="0,15"/>
+
+                    <Label Content="Recommendations:" FontWeight="Bold" Margin="0,5"/>
+
+                    <Button Content="⭐ Best Overall" Click="FilterBestOverall_Click"
+                            HorizontalAlignment="Stretch" Margin="5" Background="#2196F3"/>
+                    <Button Content="🔥 Best NSFW" Click="FilterBestNSFW_Click"
+                            HorizontalAlignment="Stretch" Margin="5" Background="#F44336"/>
+                    <Button Content="🎨 Best Anime" Click="FilterBestAnime_Click"
+                            HorizontalAlignment="Stretch" Margin="5" Background="#9C27B0"/>
+
+                    <Separator Margin="0,15"/>
+
+                    <TextBlock Text="Important Notes:" FontWeight="Bold" Margin="5,10,5,5"/>
+                    <TextBlock Text="• All models are SD 1.5&#10;• AnimateDiff compatible&#10;• Private use only&#10;• Respect licenses&#10;• Use responsibly"
+                               FontSize="10" Foreground="Gray" Margin="5" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Right: Model List & Details -->
+            <Grid Grid.Column="1" Margin="10,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Model List -->
+                <ListBox Name="ModelsListBox" Grid.Row="0" SelectionChanged="ModelsListBox_SelectionChanged"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#EEEEEE" BorderThickness="1" Padding="10" Margin="5"
+                                    Background="White">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Title Row -->
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="#1976D2"/>
+                                        <TextBlock Text="{Binding Version}" FontSize="12" Foreground="Gray" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                        <Border Background="#F44336" CornerRadius="3" Padding="5,2" Margin="10,0,0,0">
+                                            <TextBlock Text="{Binding TypeDisplay}" FontSize="10" Foreground="White"/>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <!-- Description -->
+                                    <TextBlock Grid.Row="1" Text="{Binding Description}" TextWrapping="Wrap"
+                                               Margin="0,5" FontSize="13"/>
+
+                                    <!-- Metadata -->
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5">
+                                        <TextBlock Text="NSFW Level: " FontWeight="SemiBold" FontSize="11"/>
+                                        <TextBlock Text="{Binding NsfwLevelDescription}" FontSize="11" Foreground="#E91E63"/>
+                                        <TextBlock Text=" | Size: " FontWeight="SemiBold" FontSize="11" Margin="10,0,0,0"/>
+                                        <TextBlock Text="{Binding FileSizeDisplay}" FontSize="11"/>
+                                    </StackPanel>
+
+                                    <!-- Tags -->
+                                    <ItemsControl Grid.Row="3" ItemsSource="{Binding Tags}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#E3F2FD" CornerRadius="3" Padding="5,2" Margin="2">
+                                                    <TextBlock Text="{Binding}" FontSize="10" Foreground="#1976D2"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <!-- Model Details Panel -->
+                <Border Grid.Row="1" Name="DetailsPanel" Visibility="Collapsed"
+                        BorderBrush="#CCCCCC" BorderThickness="1" Padding="15" Margin="5"
+                        Background="#FAFAFA">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Details Text -->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Name="SelectedModelName" FontSize="18" FontWeight="Bold" Margin="0,0,0,5"/>
+
+                            <TextBlock Text="Pros:" FontWeight="SemiBold" Margin="0,10,0,5"/>
+                            <ItemsControl Name="ProsList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding StringFormat='✓ {0}'}" Foreground="Green" Margin="5,2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Text="Cons:" FontWeight="SemiBold" Margin="0,10,0,5"/>
+                            <ItemsControl Name="ConsList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding StringFormat='⚠ {0}'}" Foreground="Orange" Margin="5,2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Text="Recommended Settings:" FontWeight="SemiBold" Margin="0,10,0,5"/>
+                            <TextBlock Name="RecommendedSettings" Foreground="Gray" Margin="5,2"/>
+                        </StackPanel>
+
+                        <!-- Download Button -->
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <Button Name="DownloadButton" Content="📥 Download Model"
+                                    Click="DownloadButton_Click"
+                                    Background="#4CAF50" Foreground="White"
+                                    FontSize="14" FontWeight="Bold"
+                                    Padding="20,10" MinWidth="150"/>
+
+                            <TextBlock Name="DownloadSizeText" Text="~2 GB"
+                                       TextAlignment="Center" FontSize="11" Foreground="Gray" Margin="0,5"/>
+
+                            <ProgressBar Name="DownloadProgress" Minimum="0" Maximum="100"
+                                         Height="10" Margin="0,10,0,5" Visibility="Collapsed"/>
+                            <TextBlock Name="DownloadProgressText" TextAlignment="Center"
+                                       FontSize="10" Foreground="Gray" Visibility="Collapsed"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- Bottom Bar -->
+        <Border Grid.Row="2" Background="#F5F5F5" Padding="10" BorderBrush="#CCCCCC" BorderThickness="0,1,0,0">
+            <Grid>
+                <TextBlock Name="StatusText" Text="Select a model to see details"
+                           VerticalAlignment="Center" Foreground="Gray"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Refresh Installed Models" Click="RefreshInstalled_Click" Margin="5"/>
+                    <Button Content="Close" Click="Close_Click" Margin="5"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

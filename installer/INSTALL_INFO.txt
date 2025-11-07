@@ -1,0 +1,73 @@
+Image-to-Video Generator - Installation Information
+====================================================
+
+Thank you for installing the Image-to-Video Generator!
+
+IMPORTANT NOTES
+---------------
+
+1. SYSTEM REQUIREMENTS
+   - Windows 10/11 (64-bit)
+   - .NET 6.0 Desktop Runtime
+   - WSL 2 with Ubuntu 22.04
+   - NVIDIA RTX GPU (12GB+ VRAM recommended)
+   - 30GB+ free disk space (15GB for AI models)
+   - 16GB+ RAM recommended
+
+2. AGE RESTRICTION
+   ⚠️ This application is intended for users 18 years and older.
+   ⚠️ The application supports NSFW (Not Safe For Work) AI models.
+   ⚠️ By continuing installation, you confirm you are 18+ years old.
+
+3. PRIVACY & OFFLINE USE
+   ✓ All processing is done locally on your computer
+   ✓ No data is sent to external servers
+   ✓ No telemetry or analytics
+   ✓ Works completely offline after initial setup
+
+4. POST-INSTALLATION SETUP
+   After installation completes, you MUST:
+
+   a) Set up Python backend in WSL:
+      - Open Ubuntu (WSL) terminal
+      - Navigate to installation directory
+      - Run: bash scripts/setup_wsl.sh
+
+   b) Download AI models (~15GB, 20-40 minutes):
+      - Follow prompts from setup script
+      - Models will be saved to D:\VideoGenerator\models\
+
+   c) Verify installation:
+      - Run: python backend/verify_setup.py
+      - All checks should pass before using the application
+
+   See QUICKSTART.md in the installation folder for detailed step-by-step instructions.
+
+5. DISK SPACE
+   The application will use:
+   - C:\ drive: ~200 MB (application files)
+   - D:\ drive: ~15 GB (AI models and output videos)
+
+   Ensure you have sufficient free space before continuing.
+
+6. FIRST RUN
+   - First video generation will be slow (30-60s model loading)
+   - Subsequent generations are much faster
+   - See TROUBLESHOOTING.md if you encounter issues
+
+7. LEGAL & RESPONSIBILITY
+   - You are responsible for all content generated with this application
+   - Use NSFW models responsibly and legally
+   - Follow your local laws regarding AI-generated content
+   - This is for private use only
+   - Respect copyright and intellectual property rights
+
+GETTING HELP
+------------
+
+If you encounter issues:
+1. Check TROUBLESHOOTING.md in the docs folder
+2. Run verify_setup.py to check your environment
+3. Visit: https://github.com/YOUR_USERNAME/image-video-generator/issues
+
+CLICK NEXT TO CONTINUE INSTALLATION

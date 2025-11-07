@@ -1,0 +1,448 @@
+# Image-to-Video Generator - .gitignore
+
+# ============================================================================
+# AI Models (Too large for git - 10GB+)
+# ============================================================================
+models/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.onnx
+model.safetensors
+pytorch_model.bin
+
+# ============================================================================
+# Generated Content
+# ============================================================================
+output/
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.gif
+
+# Temporary frames
+frames/
+temp_frames/
+
+# ============================================================================
+# Python
+# ============================================================================
+
+# Virtual environments
+venv/
+env/
+ENV/
+backend/venv/
+.venv
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.env.local
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ============================================================================
+# C# / .NET
+# ============================================================================
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Chutzpah Test files
+_Chutzpah*
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Click-Once directory
+publish/
+
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# NuGet Symbol Packages
+*.snupkg
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# ============================================================================
+# Operating System Files
+# ============================================================================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+
+# Linux
+*~
+.directory
+.Trash-*
+.nfs*
+
+# ============================================================================
+# IDEs and Editors
+# ============================================================================
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
+
+# Visual Studio
+.vs/
+*.rsuser
+
+# JetBrains (Rider, PyCharm, etc.)
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# ============================================================================
+# Project Specific
+# ============================================================================
+
+# Configuration files with sensitive data
+config.local.json
+secrets.json
+*.local.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Downloaded models metadata (keep structure, ignore content)
+models/*
+!models/.gitkeep
+!models/README.md
+
+# Output directory (keep structure)
+output/*
+!output/.gitkeep
+
+# Test images/videos (if used for testing)
+test_images/
+test_videos/
+
+# Performance profiling
+*.prof
+*.lprof
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Compressed files (usually models or releases)
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Release builds (tracked separately)
+release/
+dist/
+packages/
+
+# Installer output
+installer/Output/
+*.exe
+!installer/setup.iss
+
+# Portable packages
+*.zip
+!docs/*.zip
+
+# ============================================================================
+# Machine Learning Specific
+# ============================================================================
+
+# Hugging Face cache
+.cache/
+huggingface/
+
+# Torch checkpoints
+checkpoint/
+checkpoints/
+*.pth.tar
+
+# TensorBoard logs
+runs/
+tensorboard/
+events.out.tfevents.*
+
+# Weights & Biases
+wandb/
+
+# MLflow
+mlruns/
+
+# ============================================================================
+# Documentation Build
+# ============================================================================
+
+# Sphinx documentation
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# MkDocs
+site/
+
+# ============================================================================
+# Package Managers
+# ============================================================================
+
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+__pypackages__/
+
+# ============================================================================
+# NSFW / Private Content
+# ============================================================================
+
+# Ensure no accidentally committed NSFW test images
+*nsfw*
+*NSFW*
+*adult*
+*explicit*
+
+# User's personal test images
+my_images/
+personal/
+private/
+
+# ============================================================================
+# GPU / CUDA
+# ============================================================================
+
+# CUDA cache
+.nv/
+*.cudaprofile
+*.nvvp
+
+# ============================================================================
+# Kluster (keep existing exclusions)
+# ============================================================================
+.github/instructions/kluster-code-verify.instructions.md
+.kluster
+
+# ============================================================================
+# Keep These
+# ============================================================================
+
+# Keep directory structure
+!.gitkeep
+
+# Keep documentation
+!*.md
+!docs/
+!plans/
+
+# Keep configuration templates
+!config.example.json
+!.env.example
+
+# Keep GitHub workflows
+!.github/
